@@ -1,0 +1,33 @@
+name: laravel-boilerplate
+recipe: laravel
+config:
+  webroot: public
+services:
+  appserver:
+    run:
+      - "cd $LANDO_MOUNT && composer install"
+  database:
+    portforward: 3307
+  mailhog:
+    type: mailhog
+    hogfrom:
+      - appserver
+  cli:
+    type: node
+  redis:
+    type: redis
+    portforward: 6380
+proxy:
+  appserver:
+    - boilerplate.lndo.site
+  mailhog:
+    - mail.boilerplate.lndo.site
+tooling:
+  npm:
+    service: cli
+  npx:
+    service: cli
+  node:
+    service: cli
+  yarn:
+    service: cli
